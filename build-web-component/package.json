@@ -1,0 +1,29 @@
+{
+	"name": "build-web-component",
+	"version": "2.0.0",
+	"description": "",
+	"main": "./src/compiler.mjs",
+	"scripts": {
+		"test": "node ./src/main.mjs test/component-src/b-wc.json",
+		"test-custom": "node ./src/main.mjs"
+	},
+	"bin": {
+		"web-component": "./src/main.mjs",
+		"wcomp": "./src/main.mjs"
+	},
+	"keywords": [
+		"web-component",
+		"web-component-compiler"
+	],
+	"author": "Anshu Krishna <anshu.krishna5@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"command-line-args": "^5.2.1",
+		"cssnano": "^5.1.14",
+		"jsdom": "^20.0.3",
+		"node-watch": "^0.7.3",
+		"postcss": "^8.4.20",
+		"postcss-preset-env": "^7.8.3",
+		"uglify-js": "^3.17.4"
+	}
+}

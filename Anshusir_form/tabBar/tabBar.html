@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Tabs Html</title>
+	<link rel="stylesheet" href="./tabBar.css">
+</head>
+
+<body>
+	<div class="tab">
+
+		<!-- Header for select any elements -->
+		<header>
+			<button class="active">Home</button>
+			<button>Menu</button>
+			<button>Login</button>
+			<button>Sign Up</button>
+		</header>
+
+		<!-- Home Content -->
+		<div class="tab-content on">
+			<div class="home-content">
+				<div class="sidebar">
+					<h2>Vaibhav Vaghasiya</h2>
+					<label>Devloper</label>
+					<img src="./profile.jpg" alt="No Image" width="100%" height="100%">
+					<label>Name : Vaibhav Vaghasiya</label>
+					<label>Birthday : </label>
+					<label>Job : </label>
+					<label>Email : </label>
+					<label>Skype : </label>
+				</div>
+				<div class="section-content">
+					<!-- About Section -->
+					<button>About Me</button>
+					<section class="on">
+						<p>Started earnest brother believe an exposed so. Me he believing daughters if forfeited at furniture. Age again and stuff downs spoke. Late hour new nay able fat each sell. Nor themselves age introduced frequently use unsatiable devonshire get. They why quit gay cold rose deal park. One same they four did ask busy. Reserved opinions fat him nay position. Breakfast as zealously incommode do agreeable furniture. One too nay led fanny allow plate.</p>
+
+						<p>Quick six blind smart out burst. Perfectly on furniture dejection determine my depending an to. Add short water court fat. Her bachelor honoured perceive securing but desirous ham required. Questions deficient acuteness to engrossed as. Entirely led ten humoured greatest and yourself. Besides ye country on observe. She continue appetite endeavor she judgment interest the met. For she surrounded motionless fat resolution may</p>
+
+					</section>
+
+					<!-- Resume Section -->
+					<button>My Resume</button>
+					<section>
+						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius atque molestias reprehenderit officia velit unde maiores necessitatibus nemo architecto, temporibus doloribus fugiat, accusantium iure quae debitis deserunt blanditiis, earum inventore.
+					</section>
+
+					<!-- Portfolio Section -->
+					<button>My Portfolio</button>
+					<section>
+						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id recusandae similique veniam dolor praesentium doloribus pariatur cum, quo voluptates, aspernatur maiores voluptate vero repudiandae quas? Eos itaque beatae quibusdam aliquid?
+					</section>
+
+					<!-- Contect Info -->
+					<button>Contect Info</button>
+					<section>
+						<div class="contect-info">
+							<p>Contact Us</p>
+							<p>info@email.com</p>
+							<p>Copyright ©2023 All rights reserved | This template is made with by Colorlib</p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<!-- Menu Content -->
+		<div class="tab-content">
+			<div class="menu-content">
+				<h2>Menu Item</h2>
+				<script>					
+					for (let i = 0; i < 6; i++) {
+						document.write(`
+							<div class="item-desc">
+								<h3>
+									Food Name
+								</h3>
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati repellendus impedit doloremque maxime dolorum odio soluta deserunt fugiat facere, saepe aperiam illo aut ut, vel est omnis facilis iusto repellat, veniam sit a? Nisi, esse.o
+								</p>
+							</div>
+							<img src="./profile.jpg" alt="No Image">
+						`);
+					}
+				</script>
+			</div>
+		</div>
+		<!-- Login Content -->
+		<div class="tab-content">
+			<p>Login Your Profile</p>
+		</div>
+
+		<!-- Sign-up Content -->
+		<div class="tab-content">
+			<div class="signup-content"></div>
+			<!-- Form for Register any person -->
+			<form>
+				<header id="formheader">Employee Form</header>
+				<input id="name" type="text" name="name" placeholder="Enter Your Name"><label for="name">Name:</label>
+				<input id="email" type="email" name="email" placeholder="Enter Your Email"><label for="email">Email :</label>
+				<input id="salary" type="number" name="salary" placeholder="Enter Your Salary"><label for="salary">Employee Salary :</label>
+
+				<fieldset name="department" id="department" required>
+					<input tabindex="-1" value="CEO" id="CEO" name="department" type="checkbox" value="CEO"><label tabindex="0" for="CEO">CEO</label>
+					<input tabindex="-1" value="HR" id="HR" name="department" type="checkbox" value="HR"><label tabindex="0" for="HR">HR</label>
+					<input tabindex="-1" value="Developer" id="Developer" name="department" type="checkbox" value="Developer"><label tabindex="0" for="Developer">Devloper</label>
+					<input tabindex="-1" value="Designer" id="Designer" name="department" type="checkbox" value="Designer"><label tabindex="0" for="Designer">Designer</label>
+				</fieldset><label>Department :</label>
+
+				<fieldset name="language" id="language" required>
+					<input tabindex="-1" type="radio" id="english" name="language" value="English"><label tabindex="0" for="english">English</label>
+					<input tabindex="-1" type="radio" id="hindi" name="language" value="Hindi"><label tabindex="0" for="hindi">Hindi</label>
+				</fieldset><label>Language :</label>
+
+				<input type="file" id="profilepic" name="profilepic" accept=".jpg , .jpeg , .gif "><label for="profilepic">Profile Picture : </label>
+				<input type="textarea" id="description" name="description" placeholder="Enter Some Description About You" rows="4" cols="1"><label for="description">Description : </label>
+				<input type="date" id="joiningdate" name="joiningdate"><label for="joiningdate">Joining Date : </label>
+				<fieldset id="hobby" name="hobby">
+					<input tabindex="-1" value="Coding" id="coding" type="checkbox" name="hobby"><label tabindex="0" for="coding">Coding</label>
+					<input tabindex="-1" value="Teaching" id="teaching" type="checkbox" name="hobby"><label tabindex="0" for="teaching">Teaching</label>
+					<input tabindex="-1" value="Singing" id="singing" type="checkbox" name="hobby"><label tabindex="0" for="singing">Singing</label>
+					<input tabindex="-1" value="Other" id="other" type="checkbox" name="hobby"><label tabindex="0" for="other">Other</label>
+				</fieldset><label>Hobby :</label>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+	</div>
+	<script src="./tabBar.js"></script>
+</body>
+
+</html>

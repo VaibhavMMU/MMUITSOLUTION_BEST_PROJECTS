@@ -1,0 +1,116 @@
+body {
+    background-color: #00DBDE;
+    background-image: linear-gradient(45deg, #00DBDE 0%, #FC00FF 100%);
+    display: grid;
+    justify-content: center;
+}
+input {
+    border: 2px solid gray;
+    border-radius: 2%;
+    padding: 0.5em 0.7em;
+    justify-content: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    gap: 1em 2em;
+    grid-auto-flow: dense;
+}
+
+form> :nth-child(odd) {
+    grid-column: 1 / 2;
+}
+
+form> :nth-child(even) {
+    grid-column: 2 / 3;
+}
+
+#formheader {
+    grid-column: 1 / -1;
+    font-size: x-large;
+    text-align: center;
+}
+
+
+form>input[type="submit"] {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+
+form>fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    /* border: 2px solid grey; */
+    border-radius: 2%;
+
+    gap: 0.5em 1em;
+    grid-auto-flow: dense;
+}
+
+#profilepic {
+    border: none;
+}
+
+fieldset {
+    position: relative;
+}
+
+fieldset>label {
+    background-color: #ededed;
+    text-align: center;
+    border-radius: 0.5em;
+    padding: 0.5em 0.7em;
+    grid-column: 1 / 2;
+    justify-self: center;
+    cursor: pointer;
+    width: 10ch;
+}
+
+[required]+label::after {
+    content: "*";
+    color: red;
+    font-weight: bold;
+}
+
+fieldset>input[type="checkbox"],
+fieldset>input[type="radio"] {
+    /* display: none; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border: none;
+    pointer-events: none;
+    opacity: 0;
+}
+
+fieldset>input:checked+label {
+    grid-column: 2 / 3;
+    background-color: #212121;
+    color: white;
+}
+
+fieldset>label:hover {
+    /* filter: brightness(80%); */
+    box-shadow: 0 0 0.5em black;
+}
+
+fieldset>label:active {
+    /* filter: brightness(70%); */
+    box-shadow: 0 0 0.25em inset black;
+}
+
+fieldset>input:checked+label:active {
+    box-shadow: 0 0 0.25em inset white;
+}
+
+@media only screen and (max-width: 600px) {
+    form {
+        grid-template-columns: 1fr;
+        gap: 1em
+    }
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Chess</title>
+	<style>
+		table {
+			border: 1px solid black;
+		}
+
+		td {
+			border: 1px solid rgb(73, 18, 0);
+			padding: 15px;
+			text-align: center;
+			font-size: 35px;
+			height: 50px;
+			width: 50px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chessBoard">
+
+	</div>
+	<script>
+		// White pieces declaration
+		const WROOK = '\u2656';
+		const WBISHOP = '\u2657';
+		const WKNIGHT = '\u2658';
+		const WKING = '\u2654';
+		const WQUEEN = '\u2655';
+		const WPOWN = '\u2659';
+		const NOVAL = '\u0000';
+
+		// Black pieces declaration
+		const BROOK = '\u265C';
+		const BBISHOP = '\u265D';
+		const BKNIGHT = '\u265E';
+		const BKING = '\u265A';
+		const BQUEEN = '\u265B';
+		const BPOWN = '\u265F';
+
+		const pieces = [
+			[`${BROOK}`, `${BKNIGHT}`, `${BBISHOP}`, `${BQUEEN}`, `${BKING}`, `${BBISHOP}`, `${BKNIGHT}`, `${BROOK}`],
+			[`${BPOWN}`, `${BPOWN}`, `${BPOWN}`, `${BPOWN}`, `${BPOWN}`, `${BPOWN}`, `${BPOWN}`, `${BPOWN}`],
+			[``, ``, ``, ``, ``, ``, ``, ``],
+			[``, ``, ``, ``, ``, ``, ``, ``],
+			[``, ``, ``, ``, ``, ``, ``, ``],
+			[``, ``, ``, ``, ``, ``, ``, ``],
+			[`${WPOWN}`, `${WPOWN}`, `${WPOWN}`, `${WPOWN}`, `${WPOWN}`, `${WPOWN}`, `${WPOWN}`, `${WPOWN}`],
+			[`${WROOK}`, `${WKNIGHT}`, `${WBISHOP}`, `${WQUEEN}`, `${WKING}`, `${WBISHOP}`, `${WKNIGHT}`, `${WROOK}`],
+		];
+
+		// Create Table for Chess Boaerd
+		const table = document.createElement('table');
+
+		// Create Proxy For Find Position of Chess Board
+		const ptable = new Proxy(table, {
+			get(tableNode, prop, pxy) {
+				// find length of proxy for our row column index
+				if (prop.length !== 2) {
+					return null;
+				}
+
+				// Make array for diffrent column and row
+				let [x, y] = [...prop];
+
+				// Find first elements by y
+				y = 9 - Number(y);
+				if (!Number.isInteger(y)) { return null; } //check condition for y is integer or not
+				x = x.charCodeAt(0); //change x value to ascii value
+
+				x -= (x > 96) ? 96 : 64; //Find Value of column
+
+				if (x < 1 || x > 8 || y < 1 || y > 8) {
+					return null;
+				}
+				return tableNode.querySelector(`tr:nth-child(${y}) > td:nth-child(${x})`);
+			}
+		});
+
+		// Make Full Table TD and TR Append
+		table.setAttribute("id", "chessBoardTable");
+		document.body.firstElementChild.appendChild(table);
+
+		for (let row = 0; row < 8; row++) {
+			const TR = document.createElement('tr');
+			for (let col = 0; col < 8; col++) {
+				const TD = document.createElement('td');
+				TD.dataset.row = 8 - row;
+				TD.dataset.col = col + 1;
+				TD.dataset.cell = `${String.fromCharCode(col + 97)}${8 - row}`;
+
+				TD.setAttribute("bgcolor", ((row + col) % 2 === 0) ? "#ffffde" : "#e2e2e2");
+				TR.appendChild(TD);
+				const boardPieces = document.createTextNode(`${pieces[row][col]}`);
+				TD.addEventListener('click', move);
+				TD.appendChild(boardPieces);
+			}
+			document.getElementById("chessBoardTable").appendChild(TR);
+		}
+
+		// Function for moving any objects
+		function move({ currentTarget: box }) {
+			const position = box.dataset.cell;
+			let val = ptable[position];
+			
+			if(box.click){
+				console.log(val);
+				box.style.backgroundColor = "gray";
+				if(box.backgroundColor === "gray");
+				{
+					
+				}
+			}
+		};
+
+
+		// POWN POSITION CHANGE IF IT IS VALID OR NOT
+		function _pown(currentCell) {
+			console.log(currentCell);
+			const xPosition = Number(currentCell.dataset.col);
+			const yPosition = Number(currentCell.dataset.row);
+
+			console.log(xPosition, yPosition - 1);
+			let table = currentCell;
+			let temp;
+			while (!table.matches("table")) {
+				table = table.parentElement;
+			}
+
+			if (currentCell.innerText === '\u2659') {
+				temp = table.querySelector(`tr:nth-child(${8 - yPosition}) > td:nth-child(${xPosition})`);
+				if ((temp.innerText.length) === 0) {
+					console.log(xPosition, yPosition);
+					// temp.textContent = currentCell.textContent;
+					// currentCell.textContent = "";
+				}
+			}
+			if (currentCell.innerText === '\u265F') {
+				temp = table.querySelector(`tr:nth-child(${yPosition + 1}) > td:nth-child(${xPosition})`);
+				if ((temp.innerText.length) === 0) {
+					// temp.textContent = currentCell.textContent;
+					// currentCell.textContent = "";
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>

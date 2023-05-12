@@ -1,0 +1,21 @@
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+  
+  label {
+    grid-column: 1 / 2;
+  }
+  
+  input,
+  textarea {
+    grid-column: 2 / 3;
+    width: 100%;
+  }
+  
+  button {
+    grid-column: 2 / 3;
+    justify-self: end;
+  }
+  

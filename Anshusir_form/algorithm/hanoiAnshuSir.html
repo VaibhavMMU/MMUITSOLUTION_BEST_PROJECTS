@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Hanoi</title>
+	<style>
+		#hanoi {
+			--count: 0;
+			min-height: calc(var(--count) * 2em);
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			justify-items: center;
+			grid-auto-flow: dense;
+			align-items: start;
+			transform: rotateZ(180deg);
+			gap: 0;
+		}
+
+		#hanoi>div {
+			--index: 1;
+			box-sizing: border-box;
+			border: 1px solid;
+			height: 2em;
+			width: calc(1em + var(--index) * 1em);
+			transform: rotateZ(180deg);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		#hanoi>div.one {
+			grid-column: 3 / 4;
+		}
+
+		#hanoi>div.two {
+			grid-column: 2 / 3;
+		}
+
+		#hanoi>div.three {
+			grid-column: 1 / 2;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="hanoi"></div>
+	<script>
+
+		const hanoi = {
+			rod: {
+				one: [],
+				two: [],
+				three: []
+			},
+			cntr: document.querySelector('#hanoi'),
+			delay(milisec) {
+				return new Promise(res => {
+					setTimeout(res, milisec);
+				});
+			},
+			makeAndSolve(count, delay = 1000) {
+				if (this.cntr === null || !Number.isInteger(count) || count < 1) { return; }
+
+				this.cntr.style.setProperty('--count', count);
+
+				this.rod.one = Array.from(Array(count).keys()).map(n => n + 1);
+				this.rod.two = [];
+				this.rod.three = [];
+
+				this.cntr.innerHTML = this.rod.one.map(i => {
+					const num = count - i + 1;
+					return `<div class="one" style="--index:${num}">${num}</div>`
+				}).join('');
+				// this.solve(count, this.rod.one, this.rod.two, this.rod.three);
+				this.solve2(count, 'one', 'two', 'three');
+			},
+			async solve2(n, a, b, c) {
+				if (n > 0) {
+					// this.delay(1000).then(() => {
+
+					this.solve2(n - 1, a, c, b);
+
+					// await this.delay(2000);
+
+
+					const item = this.rod[a].at(-1) ?? null;
+					this.rod[a] = this.rod[a].slice(0, -1);
+					// console.log(item);
+					this.rod[c] = [...this.rod[c], item];
+
+					console.log(this.rod[a], this.rod[b], this.rod[c]);
+					for (const [rod, list] of Object.entries(this.rod)) {
+						for (const index of list) {
+							this.cntr.querySelector(`div:nth-child(${index})`).setAttribute('class', rod);
+						}
+						await this.delay(2000);
+					}
+
+					this.solve2(n - 1, b, a, c);
+					// });
+				}
+			},
+			async solve(count, source, target, extra, delay = 1000) {
+				if (count < 1) { return; }
+				this.solve(count - 1, source, extra, target, delay);
+				target.unshift(source.shift());
+				console.log(this.rod);
+				for (const [rod, list] of Object.entries(this.rod)) {
+					for (const index of list) {
+						// await this.delay(delay);
+						this.cntr.querySelector(`div:nth-child(${index})`).setAttribute('class', rod);
+					}
+				}
+				this.solve(count - 1, extra, target, source, delay);
+			}
+		};
+
+		// Calling Function makeAndSolve
+		hanoi.makeAndSolve(3);
+	</script>
+</body>
+
+</html>

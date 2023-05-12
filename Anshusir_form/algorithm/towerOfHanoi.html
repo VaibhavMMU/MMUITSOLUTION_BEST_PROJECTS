@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Towers Of Hanoi</title>
+	<style>
+		#henoi {
+			margin-top: 100px;
+			display: grid;
+			grid-template-columns: auto auto auto;
+			border: 1px solid black;
+			gap: 1em 1em;
+			grid-auto-flow: dense;
+			text-align: center;
+			transform: rotateZ(180deg);
+			min-height: 9em;
+		}
+
+		#henoi>div {
+			transform: rotateZ(180deg);
+		}
+
+		#henoi>.first {
+			grid-column: 3 / 4;
+		}
+
+		#henoi>.second {
+			grid-column: 2 / 3;
+		}
+
+		#henoi>.third {
+			grid-column: 1 / 2;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="henoi">
+		<!-- <div class="first">1111</div> -->
+		<!-- <div class="first">111</div> -->
+		<div class="first">11</div>
+		<div class="first">1</div>
+	</div>
+	<script>
+		let a = [...document.querySelectorAll('#henoi > div')];
+		let length = a.length;
+		let b = [];
+		let c = [];
+
+		function delay() {
+			return new Promise(res => {
+				setTimeout(res, 1000);
+			});
+		}
+		function updateDisplay() {
+			const board = {
+				first: a,
+				second: b,
+				third: c
+			};
+			console.log(board);
+			for(const [rod, list] of Object.entries(board)) {
+				for(const node of list) {
+					node?.setAttribute('class', rod);
+				}
+			}
+		}
+
+		async function hanoi(numberOfCircles, to, from, support) {
+			if (numberOfCircles > 0) {
+
+				hanoi(numberOfCircles - 1, to, support, from);
+
+				//take last element of main roode to add in other roode
+				
+				// console.log(a, b, c);
+				from.unshift(to.shift());
+				await delay();
+				updateDisplay();
+
+				hanoi(numberOfCircles - 1, support, from, to);
+			}
+		}
+		// console.log(a, b, c);
+		hanoi(length, a, c, b);
+
+	</script>
+</body>
+
+</html>

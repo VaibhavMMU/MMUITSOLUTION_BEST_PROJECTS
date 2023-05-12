@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3D Dice</title>
+    <style>
+        .container {
+            --sideSize: 25px;
+            --cubeSize: 50px;
+            width: var(--cubeSize);
+            height: var(--cubeSize);
+            position: relative;
+            margin: 0 auto 5px;
+            border: 1px solid #FFF;
+            perspective: 1000px;
+            perspective-origin: 50% 100%;
+        }
+
+        #cube .front {
+
+            transform:
+                translateZ(var(--sideSize));
+        }
+
+        #cube .back {
+            transform:
+                rotateX(-180deg) translateZ(var(--sideSize));
+        }
+
+        #cube .right {
+            transform:
+                rotateY(90deg) translateZ(var(--sideSize));
+        }
+
+        #cube .left {
+            transform:
+                rotateY(-90deg) translateZ(var(--sideSize));
+        }
+
+        #cube .top {
+            transform:
+                rotateX(-90deg) translateZ(var(--sideSize));
+        }
+
+        #cube .bottom {
+            transform:
+                rotateX(90deg) translateZ(var(--sideSize));
+        }
+
+        #cube {
+            width: var(--cubeSize);
+            height: var(--cubeSize);
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 2s;
+        }
+
+        #cube:hover {
+            cursor: pointer;
+        }
+
+        #cube div {
+            background: hsla(136, 75%, 50%, 0.8);
+            display: block;
+            position: absolute;
+            width: var(--cubeSize);
+            height: var(--cubeSize);
+            border: 2px solid #241aab;
+            font-size: var(--cubeSize);
+            text-align: center;
+            padding: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container">
+        <div id="cube">
+            <div class="front">
+                <svg width="50" height="50">
+                    <rect width="50" height="50" style="fill:rgba(159,255,0,0.5);" />
+                    <circle cy="50%" cx="50%" r="9" fill="white"/>
+                </svg>
+            </div>
+            <div class="back">
+                <svg width="50" height="50">
+                    <rect width="50" height="50" style="fill:rgba(159,255,0,0.5);" />
+                    <circle cy="25%" cx="75%" r="9" fill="white"/>
+                    <circle cy="75%" cx="25%" r="9" fill="white"/>
+                </svg>
+            </div>
+            <div class="right">⚄</div>
+            <div class="left">⚁</div>
+            <div class="top">⚂</div>
+            <div class="bottom">⚃</div>
+        </div>
+    </section>
+    <script>
+        var cube = document.getElementById('cube');
+
+        var min = 1;
+        var max = 24;
+
+        cube.onclick = function () {
+            var xRand = getRandom(max, min);
+            var yRand = getRandom(max, min);
+
+            cube.style.transform = 'rotateX(' + xRand + 'deg) rotateY(' + yRand + 'deg)';
+        }
+
+        function getRandom(max, min) {
+            let val = (Math.floor(Math.random() * (max - min)) + min) * 90;
+            console.log(val);
+            return val;
+        }
+    </script>
+</body>
+
+</html>

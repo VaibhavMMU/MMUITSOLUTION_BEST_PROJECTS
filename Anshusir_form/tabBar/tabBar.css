@@ -1,0 +1,341 @@
+body {
+    background-color: #fddf97;
+}
+
+/* this is for header css */
+div.tab>header {
+    display: flex;
+    flex: max-content;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1em;
+    gap: 1em;
+    background-color: #e09664;
+    border-radius: 5px;
+}
+
+div.tab>div.tab-content {
+    display: none;
+}
+
+div.tab>div.tab-content.on {
+    display: grid;
+
+}
+
+div.tab>header>button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 1%;
+    margin: 0%;
+    border-radius: 5%;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    font-size: large;
+}
+
+div.tab>header>button:hover {
+    background-color: peru;
+}
+
+div.tab>header>button.active {
+    background-color: #ededed;
+    box-shadow: 0 0 0.25em inset black;
+}
+
+
+/* this is for Home css */
+div.home-content {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+div.section-content>button {
+    background: none;
+    border: none;
+    padding: 1%;
+    border-radius: 5%;
+    font: inherit;
+    cursor: pointer;
+    font-size: x-large;
+    text-align: left;
+}
+
+div.section-content {
+    display: grid;
+    margin: 1%;
+    padding: 1%;
+}
+
+div.section-content>section {
+    display: none;
+}
+
+div.section-content>section.on {
+    display: grid;
+    margin: 3%;
+    position: relative;
+    animation: section 4s -2s;
+}
+
+@keyframes section {
+    0% {
+        left: 80%;
+        top: 0px;
+    }
+
+    100% {
+        left: 0px;
+        top: 0px;
+    }
+}
+
+div.sidebar {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 0.5em;
+    margin: 3%;
+    position: relative;
+    animation: sidebar 4s -2s;
+}
+
+@keyframes sidebar {
+    0% {
+        left: -50%;
+        top: -10%;
+    }
+
+    100% {
+        left: 0px;
+        top: 0px;
+    }
+}
+
+.contect-info {
+    display: grid;
+    justify-self: center;
+    text-align: center;
+}
+
+
+/* Menu Content */
+.menu-content {
+    display: grid;
+    grid-template-columns: 1fr min-content 1fr min-content;
+    grid-auto-flow: row;
+    align-items: center;
+    justify-items: center;
+    position: absolute;
+    gap: 0.5em 0.5em;
+    margin: 1%;
+}
+
+.menu-content>h2 {
+    grid-column: 1 / -1;
+    justify-self: center;
+    position: relative;
+    animation: menuHeading 3s -2s;
+}
+@keyframes menuHeading {
+    0% {
+
+        top: -500px;
+    }
+
+    100% {
+        top: 0px;
+    } 
+}
+
+.item-desc>h3 {
+    justify-items: center;
+    text-align: center;
+    position: relative;
+    animation-name: itemname;
+    animation-duration: 3s;
+}
+
+@keyframes itemname {
+    0% {
+        left: 50%;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+.item-desc>p{
+    position: relative;
+    animation: itemdesc 3s -2s;
+}
+@keyframes itemdesc {
+    0%{
+        left: -10%;
+        top: 100px;
+    }    
+    100%{
+        left: 0px;
+        top: 0px;
+    }
+}
+.menu-content > img {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    animation: imageAnim 3s -2s;
+}
+
+@keyframes imageAnim {
+    0% {
+        left: 600px;
+        top: 600px;
+    }
+    100% {
+        left: 0%;
+        top: 0%;
+    }
+}
+
+
+/* this is for form and sign-up css */
+
+input {
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 0.5em 0.7em;
+    justify-content: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    align-items: center;
+    gap: 1em 2em;
+    grid-auto-flow: dense;
+}
+
+form> :nth-child(odd) {
+    grid-column: 1 / 2;
+    position: relative;
+    animation: form-left 4s -2s;
+}
+
+@keyframes form-left {
+    100% {
+        left: 0px;
+    }
+
+    0% {
+        left: -100px;
+    }
+}
+
+form> :nth-child(even) {
+    grid-column: 2 / 3;
+    position: relative;
+    animation: form-right 4s -2s;
+}
+
+@keyframes form-right {
+    100% {
+        left: 0px;
+    }
+
+    0% {
+        left: 500px;
+    }
+}
+
+#formheader {
+    grid-column: 1 / -1;
+    font-size: x-large;
+    text-align: center;
+}
+
+
+form>input[type="submit"] {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+
+form>fieldset {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    border: 2px solid grey;
+    border-radius: 5px;
+    gap: 0.5em 1em;
+    grid-auto-flow: dense;
+}
+
+#profilepic {
+    border: none;
+}
+
+fieldset {
+    position: relative;
+}
+
+fieldset>label {
+    background-color: #ededed;
+    text-align: center;
+    border-radius: 0.5em;
+    padding: 0.5em 0.7em;
+    grid-column: 1 / 2;
+    justify-self: center;
+    cursor: pointer;
+    width: 10ch;
+}
+
+[required]+label::after {
+    content: "*";
+    color: red;
+    font-weight: bold;
+}
+
+fieldset>input[type="checkbox"],
+fieldset>input[type="radio"] {
+    /* display: none; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border: none;
+    pointer-events: none;
+    opacity: 0;
+}
+
+fieldset>input:checked+label {
+    grid-column: 2 / 3;
+    background-color: #212121;
+    color: white;
+}
+
+fieldset>label:hover {
+    /* filter: brightness(80%); */
+    box-shadow: 0 0 0.5em black;
+}
+
+fieldset>label:active {
+    /* filter: brightness(70%); */
+    box-shadow: 0 0 0.25em inset black;
+}
+
+fieldset>input:checked+label:active {
+    box-shadow: 0 0 0.25em inset white;
+}
+
+@media only screen and (max-width: 600px) {
+    form {
+        grid-template-columns: 1fr;
+        gap: 1em
+    }
+
+    .menu-content {
+        grid-template-columns: 1fr min-content;
+    }
+}

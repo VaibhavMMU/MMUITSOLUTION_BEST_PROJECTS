@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Form For Registration</title>
+    <link rel="stylesheet" href="./form.css">
+</head>
+
+<body>
+    <form>
+        <header id="formheader">Employee Form</header>
+        <input id="name" type="text" name="name" placeholder="Enter Your Name"><label for="name">Name:</label>
+        <input id="email" type="email" name="email" placeholder="Enter Your Email"><label for="email">Email :</label>
+        <input id="salary" type="number" name="salary" placeholder="Enter Your Salary"><label for="salary">Employee Salary :</label>
+
+        <fieldset name="department" id="department" required>
+            <input tabindex="-1" value="CEO" id="CEO" name="department" type="checkbox" value="CEO"><label tabindex="0" for="CEO">CEO</label>
+            <input tabindex="-1" value="HR" id="HR" name="department" type="checkbox" value="HR"><label tabindex="0" for="HR">HR</label>
+            <input tabindex="-1" value="Developer" id="Developer" name="department" type="checkbox" value="Developer"><label tabindex="0" for="Developer">Devloper</label>
+            <input tabindex="-1" value="Designer" id="Designer" name="department" type="checkbox" value="Designer"><label tabindex="0" for="Designer">Designer</label>
+        </fieldset><label>Department :</label>
+
+        <fieldset name="language" id="language" required>
+            <input tabindex="-1" type="radio" id="english" name="language" value="English"><label tabindex="0" for="english">English</label>
+            <input tabindex="-1" type="radio" id="hindi" name="language" value="Hindi"><label tabindex="0" for="hindi">Hindi</label>
+        </fieldset><label>Language :</label>
+
+        <input type="file" id="profilepic" name="profilepic" accept=".jpg , .jpeg , .gif "><label for="profilepic">Profile Picture : </label>
+        <input type="textarea" id="description" name="description" placeholder="Enter Some Description About You" rows="4" cols="1"><label for="description">Description : </label>
+        <input type="date" id="joiningdate" name="joiningdate"><label for="joiningdate">Joining Date : </label>
+        <fieldset id="hobby" name="hobby">
+            <input tabindex="-1" value="Coding" id="coding" type="checkbox" name="hobby"><label tabindex="0" for="coding">Coding</label>
+            <input tabindex="-1" value="Teaching" id="teaching" type="checkbox" name="hobby"><label tabindex="0" for="teaching">Teaching</label>
+            <input tabindex="-1" value="Singing" id="singing" type="checkbox" name="hobby"><label tabindex="0" for="singing">Singing</label>
+            <input tabindex="-1" value="Other" id="other" type="checkbox" name="hobby"><label tabindex="0" for="other">Other</label>
+        </fieldset><label>Hobby :</label>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // const formData = [...new FormData(e.target).entries()];
+            // console.log(formData);  
+            
+            // FIND REQUIRED FIELD OBJECTS
+            const reqFieldsetsObj = Object.fromEntries([
+                ...document.querySelectorAll('form > fieldset[required]')
+            ].map(node => [
+                node.getAttribute('name'),
+                node
+            ]));
+
+            // MISSING KEYS FIND
+            const missingKeys = Object.keys(reqFieldsetsObj).filter(item => ![
+                ... new Set([
+                    ...(new FormData(e.target)).entries()
+                ].map(item => item[0]))
+            ].includes(item));
+            if (missingKeys.length > 0) {
+                const element = reqFieldsetsObj[missingKeys[0]].firstElementChild;
+                element.setCustomValidity("Please select at least one");
+                element.reportValidity();
+                setTimeout(() => {
+                    element.setCustomValidity('');
+                }, 2000);
+                return;
+            }
+
+            // fetch('url', {
+
+            // })
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- 
+ document.querySelector('form').addEventListener('submit', (e) => {
+         e.preventDefault();
+
+         //GET FORM 
+         const form = e.target;
+         //GET FOEM DATA VALUES IN ARRAY FORMATE
+         const formData = new FormData(e.target);
+         console.log(e.target);
+
+         //GET HOW MANY REQUIRED FIELSET DEFINE BY USER
+         const reqFieldsetsArray = [...document.querySelectorAll('form > fieldset[required]')];
+
+        // SET/MAKE ARRAY REQUIRED FIELD NAME
+         const reqFieldsetsEntries = reqFieldsetsArray.map(node => [
+             node.getAttribute('name'),
+             node
+         ]);
+
+         //MAKE ONE OBJECT FOR REQUIREDFIELD WHICH GIVES INPUT FIELDS VALUE
+         const reqFieldsetsObj = Object.fromEntries(reqFieldsetsEntries);
+        //  MAKE ARRAY OF OBJECT KEYS
+         const reqFieldsetsObjKeys = Object.keys(reqFieldsetsObj);
+
+        // FORM DATA ENTRIES
+         const formEntries = [...formData.entries()];
+
+        // FORM ENTRIES KEYS
+         const formEntriesKeys = formEntries.map(item => item[0]);
+
+        // UNIQUE FORM ENTRIES KEYS
+         const uniqueFormEntriesKeys = [... new Set(formEntriesKeys)];
+
+        // FIND MISSINGKEYS WHICH NOT IN ARRAY
+         const missingKeys = reqFieldsetsObjKeys.filter(item => !uniqueFormEntriesKeys.includes(item));
+
+         const missingKeys = Object.keys(reqFieldsetsObj).filter(item => ![... new Set([...formData.entries()].map(item => item[0]))].includes(item));
+         console.log(missingKeys);
+         if (missingKeys.length > 0) {
+
+              const firstFieldSetWithMissingKey = reqFieldsetsObj[missingKeys[0]];
+
+              const focusElement = firstFieldSetWithMissingKey.firstElementChild;
+
+             const focusElement = reqFieldsetsObj[missingKeys[0]].firstElementChild;
+             focusElement.setCustomValidity("Please select at least one");
+             focusElement.reportValidity();
+             setTimeout(() => {
+                 focusElement.setCustomValidity('');
+             }, 2000);
+             return;
+         }
+-->

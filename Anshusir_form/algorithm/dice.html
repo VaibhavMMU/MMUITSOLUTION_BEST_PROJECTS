@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Random Dice</title>
+    <style>
+        .snackBoard {
+            display: grid;
+            width: fit-content;
+            justify-content: center;
+        }
+
+        #snakeBoardTable>tr>td {
+            padding: 5px;
+        }
+
+        .img-btn {
+            height: 100%;
+            text-align: center;
+        }
+
+        .img-btn img {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snackBoard">
+
+    </div>
+    <div class="img-btn">
+        <img src="./images/6.jpg" alt="No images" id="diceImg">
+        <div class="onclick-btn">
+            <button onclick="throughDice();">Through Dice</button>
+        </div>
+    </div>
+    <script>
+
+        const table = document.createElement('table');
+        table.setAttribute("id", "snakeBoardTable");
+        document.body.firstElementChild.appendChild(table);
+        let num = 100;
+        for (i = 10; i >= 1; i--) {
+            const TR = document.createElement('tr');
+            for (j = 10; j >= 1; j--) {
+                const TD = document.createElement('td');
+                TR.appendChild(TD);
+                const boardPieces = document.createTextNode(`${num--}`);
+                TD.appendChild(boardPieces);
+            }
+            document.getElementById("snakeBoardTable").appendChild(TR);
+
+        }
+
+        function throughDice() {
+            const randomNum = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('diceImg').src = `./images/${randomNum}.jpg`, document.getElementById('diceImg');
+        }
+    </script>
+</body>
+
+</html>

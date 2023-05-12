@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Snake Ladder</title>
+	<style>
+		#game {
+			color: black;
+
+		}
+
+		#game td {
+			box-sizing: border-box;
+			height: 4em;
+			width: 4em;
+			border: 1px solid;
+			padding: 0;
+			position: relative;
+			z-index: 1;
+		}
+		#game td::after {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		#game td[data-ty="snake"]::after {
+			content: "🪜";
+			background: #f007;
+		}
+		#game td[data-ty="ladder"]::after {
+			content: "🐍";
+			background: #0f07;
+		}
+
+		#game td::before {
+			content: attr(data-id);
+			position: absolute;
+			top: 0;
+			right: 0.25em;
+			background: transparent;
+			z-index: 2;
+		}
+
+		#game td.player::after {
+			background: transparent;
+			content: '♙';
+			font-size: 50px;
+			z-index: 3;
+		}
+
+		#game button {
+			cursor: pointer;
+			font-size: 3em;
+			display: inline-flex;
+			height: 4rem;
+			width: 4rem;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="game"></div>
+	<script>
+		class Game {
+			#node;
+			#cell;
+			constructor(query = '#game') {
+				this.#node = document.querySelector(query);
+				if (this.#node === null) {
+					throw new Error('Invalid generation node query');
+				}
+				this.#cell = new Proxy(this.#node, {
+					get(n, q) {
+						return n.querySelector(`[data-id="${q}"]`);
+					}
+				});
+				const list = (function (count) {
+					let s = new Set;
+					for (let i = count * 30; i > 0; i--) {
+						s.add(Math.floor(Math.random() * 100));
+					}
+					s.delete(1);
+					s.delete(100);
+					s.delete(0);
+					s = [...s];
+					const l1 = s.slice(0, count * 2);
+					const l2 = s.slice(count * 2, count * 4);
+					s = l1.map((v, i) => [v, l2[i]]);
+					return {
+						ladders: s.slice(0, count).map(([a, b]) => {
+							if (a < b) { return [a, b]; }
+							return [b, a];
+						}),
+						snakes: s.slice(count).map(([a, b]) => {
+							if (a > b) { return [a, b]; }
+							return [b, a];
+						})
+					};
+				})(5);
+				const table = document.createElement('table');
+				for (let j = 100; j > 0; j -= 10) {
+					const row = document.createElement('tr');
+					const pos = (j % 20 === 0) ? 'beforeend' : 'afterbegin';
+					for (let i = 0; i < 10; i++) {
+						const td = document.createElement('td');
+						// td.textContent = j - i;
+						td.dataset.id = j - i;
+
+						row.insertAdjacentElement(pos, td);
+					}
+					table.appendChild(row);
+				}
+				this.#node.appendChild(table);
+				this.#node.insertAdjacentHTML('beforeend', `<button>🔲</button>`);
+				for (const [s, e] of list.snakes) {
+					const snake = this.#cell[s];
+					snake.dataset.move = e;
+					snake.dataset.ty = 'snake';
+				}
+				for (const [s, e] of list.ladders) {
+					const snake = this.#cell[s];
+					snake.dataset.move = e;
+					snake.dataset.ty = 'ladder';
+				}
+
+
+				this.#node.querySelector('button').addEventListener('click', () => {
+					const roll = this.#diceroll;
+					if (this.#player < 1) {
+						if(roll === 6) {
+							this.#player = 1;
+						}
+						return;
+					}
+					let nxt = this.#player + roll;
+					const move = Number(this.#cell[nxt]?.dataset.move ?? 0);
+					if (move !== 0) {
+						nxt = move;
+					}
+					this.#player = nxt;
+					if (nxt === 100) {
+						alert('Congratulations!!!');
+					}
+				});
+			}
+			get #player() {
+				return Number(this.#node.querySelector('.player')?.dataset.id ?? 0);
+			}
+			set #player(val) {
+				if (val < 101 && val > 0) {
+					this.#cell[this.#player]?.classList.remove('player');
+					this.#cell[val].classList.add('player');
+				}
+			}
+			get #diceroll() {
+				const faces = ['', '⚀','⚁','⚂','⚃','⚄','⚅'];
+				const roll = (Math.floor(Math.random() * 100) 	% 6) + 1;
+				this.#node.querySelector('button').textContent = faces[roll];
+				return roll;
+			}
+		}
+
+		new Game();
+
+
+
+	</script>
+</body>
+
+</html>

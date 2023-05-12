@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p::first-line {
+  color: #ff0000;
+  font-variant: small-caps;
+}
+p::after{
+    content: attr();
+  color: #ff0000;
+  font-variant: small-caps;
+}
+</style>
+</head>
+<body>
+
+<p id="hello">You can use the ::first-line pseudo-element to add a <h1>special effect</h1> to the first line of a text. Some more text. And even more, and more, and more, and more, and more, and more, and more, and more, and more, and more, and more, and more.</p>
+
+<script>
+  const number = [2131,1,2,3,45,6,7,7,8];
+  for(let i in number){
+    console.log(number[i]);
+  }
+</script>
+</body>
+</html>

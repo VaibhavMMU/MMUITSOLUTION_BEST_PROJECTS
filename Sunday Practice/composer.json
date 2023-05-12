@@ -1,0 +1,9 @@
+{
+    "name": "vaibhav/projects",
+    "autoload": {
+        "psr-4": {
+            "Vaibhav\\Projects\\": "src/"
+        }
+    },
+    "require": {}
+}

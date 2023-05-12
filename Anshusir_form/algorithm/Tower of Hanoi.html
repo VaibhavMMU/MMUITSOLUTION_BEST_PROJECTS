@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tower of Hanoi</title>
+	<style>
+		body {
+			display: grid;
+			background: #212121;
+			min-height: 100vh;
+			align-items: center;
+			justify-items: center;
+		}
+		#cntr {
+			display: inline-block;
+		}
+		#hanoi {
+			--height: 2em;
+			--width: 2em;
+			--incr: 3em;
+			--count: 0;
+			--gap: 0.5em;
+
+
+			--gap-height: calc(var(--count) * var(--gap));
+			--disk-height: calc(var(--count) * var(--height));
+			height: calc(var(--gap-height) - var(--gap) + var(--disk-height));
+
+			display: grid;
+			gap: var(--gap);
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(var(--count), 1fr);
+			align-items: center;
+			justify-items: center;
+			grid-auto-flow: dense;
+			padding: var(--gap);
+			align-content: end;
+			background: linear-gradient(
+				90deg,
+				#78909c 0%,
+				#78909c 33%,
+				#607d8b 33%,
+				#607d8b 66%,
+				#78909c 66%
+			);
+		}
+		#hanoi > div {
+			box-sizing: border-box;
+			display: inline-block;
+			height: var(--height);
+			--width-incr: calc(var(--index) * var(--incr));
+			width: calc(var(--width-incr) + var(--width));
+			
+			--per: calc(var(--index) / var(--count));
+			--per2: calc(100% * var(--per));
+			background: hsl(0, 80%, var(--per2));
+		}
+		#hanoi > div.a { grid-column: 1 / 2; }
+		#hanoi > div.b { grid-column: 2 / 3; }
+		#hanoi > div.c { grid-column: 3 / 4; }
+	</style>
+</head>
+<body>
+	<div id="cntr">
+		<div id="hanoi"></div>
+	</div>
+	<script>
+		const hanoi = {
+			cntr: null,
+			// it is set for delay
+			_delay() {
+				return new Promise(res => setTimeout(res, 1000)); //Use promise
+			},
+			_alignRow() {
+				// give rods in array objects
+				const rods = { a: [], b: [], c: [] };
+				const disks = [...this.cntr.querySelectorAll('div')];
+				const rows = disks.length;
+
+				for(const d of disks) {
+					console.log(d);
+					rods[d.getAttribute('class')].push(d);
+				}
+
+				// 
+				for(const k of Object.keys(rods)) {
+					let row = rows;
+					for(const d of rods[k].reverse()) {
+						d.style.gridRow = `${row} / ${row + 1}`;
+						row--;
+					}
+				}
+			},
+			async _solve(n, fromRod = 'a', toRod = 'c', otherRod = 'b') {
+				if(n < 1) { return; }
+				await this._solve(n - 1, fromRod, otherRod, toRod);
+				await this._delay();
+				this.cntr.querySelectorAll('div')[n - 1].setAttribute('class', toRod);
+				this._alignRow();
+				await this._solve(n - 1, otherRod, toRod, fromRod);
+			},
+			start(count) {
+				// Setup
+				// select hanoi container
+				this.cntr = document.querySelector('#hanoi');
+				if(this.cntr === null) {
+					console.error('Invaild query', query);
+					return;
+				}
+				if(!Number.isInteger(count) || count < 1) {
+					console.error('Invalid count', count);
+					return;
+				}
+				const index = [...Array(count).keys()].map(i => i + 1);
+				this.cntr.style.setProperty('--count', count);
+				this.cntr.innerHTML = index.map(i => {
+					return `<div style="--index:${i};" class="a"></div>`
+				}).join('');
+				this._solve(count);
+			}
+		}
+		hanoi.start(3);
+	</script>
+</body>
+</html>

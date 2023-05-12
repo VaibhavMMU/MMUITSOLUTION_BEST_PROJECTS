@@ -1,0 +1,36 @@
+body{
+	background-color: #fddf97;
+}
+div.tab > header {
+	display: flex;
+	flex: max-content;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1em;
+}
+
+div.tab > div.tab-content {
+	display: none;
+}
+div.tab > div.tab-content.on {
+    display: block;
+}
+
+div.tab > header > button{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 1%;
+	border-radius: 5%;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+div.tab > header > button:hover{
+	background-color: #e09664;
+}
+
+div.tab > header > button:active{
+	background-color: black;
+}
